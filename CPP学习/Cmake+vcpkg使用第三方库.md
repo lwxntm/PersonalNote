@@ -61,3 +61,26 @@ int main()
 ```
 
 运行，万事大吉！
+
+### 在Qt Creator中使用Boost
+
+```
+-DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
+```
+
+上面这一行加入到CMake初始化参数里。
+
+然后在cmakeLists里添加：
+
+```
+find_package(Boost REQUIRED)
+target_link_libraries(${PROJECT_NAME} Qt${QT_VERSION_MAJOR}::Core Boost::boost)
+```
+
+这两行都是要单独的，不能分开 如果用其他的库，使用下面这种形式：
+
+```
+find_package(Boost REQUIRED [COMPONENTS <libs>...])
+target_link_libraries(main PRIVATE Boost::boost Boost::<lib1> Boost::<lib2> ...)
+```
+
